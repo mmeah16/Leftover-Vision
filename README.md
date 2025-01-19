@@ -36,6 +36,18 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
 
 ## Usage
 
+This process involves two steps, in the future as the database and application becomes more intertwined, I will be working with Docker Coompose, for a cleaner, more efficient experience.
+
+### Creating a Docker Network
+
+In order to connect the PostgreSQL database with the Flask application, a few configurations need to be made since they are running on separate Docker containers. The first part of this includes creating a Docker Network, that both containers will live on, enabling communication and connectivity with each other.
+
+1. **Create a Docker Network**
+
+   ```bash
+   docker network create <network-name>
+   ```
+
 ### Configuring the Database (PostgreSQL with Docker)
 
 #### Steps
@@ -46,8 +58,11 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
    ```
 2. **Run the Docker Container**
 
+   Here we choose the network created in [Creating a Docker Network](#creating-a-docker-network).
+
    ```bash
    docker run --name <database-name> \
+   --network <network-name> \
    -e POSTGRES_PASSWORD=<database-password> \
    -p 5432:5432 \
    -d postgres
@@ -57,11 +72,11 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
    - `<database-password>`: The password for the `postgres` user.
    - `-p 5432:5432`: Exposes PostgreSQL port `5432` on your local machine.
 
-3. **Connect to the Database Using PGAdmin or any SQL Client**
+3. **Connect to the Database Using PGAdmin**
 
-   Use the following details to connect:
+   The PGAdmin extension can be installed using the Docker Desktop application. Once installed, use the following details to connect:
 
-   - **Host:** `localhost`
+   - **Host:** `host.docker.internal`
    - **Port:** `5432`
    - **Maintenance Database:** `postgres`
    - **Username:** `postgres`
@@ -79,8 +94,10 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
 
 2. **Run the Docker Image**
 
+   Here we choose the network created in [Creating a Docker Network](#creating-a-docker-network).
+
    ```bash
-   sudo docker run --name leftover-vision -p 5001:5001 leftover-vision
+    sudo docker run --name leftover-vision --network <network-name> -p 5001:5001 leftover-vision
    ```
 
 3. **Test the Image**
@@ -97,13 +114,17 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
 
 2. **Run the Docker Image**
 
+   Here we choose the network created in [Creating a Docker Network](#creating-a-docker-network).
+
    ```bash
-   sudo docker run --platform linux/amd64 --name leftover-vision -p 5001:5001 <docker_hub_username>/leftover-vision:latest
+   sudo docker run --platform linux/amd64 --network <network-name> --name leftover-vision -p 5001:5001 <docker_hub_username>/leftover-vision:latest
    ```
 
 3. **Test the Image**
 
    Visit [http://127.0.0.1:5001/](http://127.0.0.1:5001/) to verify the application is working properly.
+
+#### Steps
 
 ## Tech Stack
 
