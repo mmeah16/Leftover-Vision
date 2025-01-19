@@ -87,6 +87,24 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
 
    Visit [http://127.0.0.1:5001/](http://127.0.0.1:5001/) to verify the application is working properly.
 
+#### Steps (For Running After CI/CD Workflow)
+
+1. **Pull the Docker Image**
+
+   ```bash
+   docker pull --platform linux/amd64 <docker_hub_username>/leftover-vision
+   ```
+
+2. **Run the Docker Image**
+
+   ```bash
+   sudo docker run --platform linux/amd64 --name leftover-vision -p 5001:5001 <docker_hub_username>/leftover-vision:latest
+   ```
+
+3. **Test the Image**
+
+   Visit [http://127.0.0.1:5001/](http://127.0.0.1:5001/) to verify the application is working properly.
+
 ## Tech Stack
 
 ### Backend
