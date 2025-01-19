@@ -100,13 +100,13 @@ I was able to find [Foodvisor](https://www.foodvisor.io/en/vision/#pricing) whic
   - Flask
 
 - **Database**:
-  - DynamoDB
+  - PostgreSQL
 
 ### DevOps/Infrastructure
 
 - **Cloud**:
 
-  - AWS
+  - AWS Elastic Container Service (ECS)
 
 - **CI/CD**:
 
